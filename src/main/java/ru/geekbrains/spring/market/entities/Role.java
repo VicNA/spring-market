@@ -1,4 +1,4 @@
-package ru.geekbrains.spring.market.enities;
+package ru.geekbrains.spring.market.entities;
 
 import lombok.Data;
 

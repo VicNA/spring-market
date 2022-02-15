@@ -2,7 +2,7 @@ package ru.geekbrains.spring.market.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.geekbrains.spring.market.enities.Product;
+import ru.geekbrains.spring.market.entities.Product;
 import ru.geekbrains.spring.market.services.ProductService;
 
 import java.util.List;

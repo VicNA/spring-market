@@ -1,4 +1,4 @@
-package ru.geekbrains.spring.market.enities;
+package ru.geekbrains.spring.market.entities;
 
 import lombok.Data;
 
@@ -11,6 +11,7 @@ import java.util.Collection;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "username")
@@ -22,6 +23,6 @@ public class User {
     @ManyToMany
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_is"))
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Collection<Role> roles;
 }
