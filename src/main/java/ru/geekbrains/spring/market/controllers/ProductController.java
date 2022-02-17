@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.spring.market.entities.Product;
 import ru.geekbrains.spring.market.services.ProductService;
+import ru.geekbrains.spring.market.utils.Cart;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+    private final Cart cart;
 
     @GetMapping
     public List<Product> findAllProducts() {
@@ -28,4 +30,5 @@ public class ProductController {
     public void deleteProductById(@PathVariable Long id) {
         productService.deleteById(id);
     }
+
 }
