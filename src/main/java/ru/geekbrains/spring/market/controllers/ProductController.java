@@ -2,11 +2,13 @@ package ru.geekbrains.spring.market.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ru.geekbrains.spring.market.dtos.ProductDto;
 import ru.geekbrains.spring.market.entities.Product;
+import ru.geekbrains.spring.market.exceptions.ResourceNotFoundException;
 import ru.geekbrains.spring.market.services.ProductService;
-import ru.geekbrains.spring.market.utils.Cart;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/products")
@@ -14,16 +16,20 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
-    private final Cart cart;
 
     @GetMapping
-    public List<Product> findAllProducts() {
-        return productService.findAll();
+    public List<ProductDto> findAllProducts() {
+        return productService.findAll().stream()
+                .map(p -> new ProductDto(p.getId(), p.getTitle(), p.getPrice()))
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/{id}")
-    public Product findProductById(@PathVariable Long id) {
-        return productService.findById(id).get();
+    public ProductDto findProductById(@PathVariable Long id) {
+        Product p = productService.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Продукт не найден, id: " + id));
+
+        return new ProductDto(p.getId(), p.getTitle(), p.getPrice());
     }
 
     @DeleteMapping("/{id}")

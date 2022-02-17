@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.geekbrains.spring.market.services.CartService;
-import ru.geekbrains.spring.market.utils.Cart;
+import ru.geekbrains.spring.market.dtos.Cart;
 
 @RestController
 @RequestMapping("/api/v1/cart")

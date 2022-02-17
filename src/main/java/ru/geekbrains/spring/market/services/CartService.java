@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import ru.geekbrains.spring.market.entities.Product;
-import ru.geekbrains.spring.market.utils.Cart;
+import ru.geekbrains.spring.market.dtos.Cart;
 
 @Service
 @RequiredArgsConstructor
