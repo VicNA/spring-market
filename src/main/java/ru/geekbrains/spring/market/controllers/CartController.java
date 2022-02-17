@@ -25,8 +25,6 @@ public class CartController {
 
     @GetMapping
     public Cart getCurrentCart() {
-        Cart cart = cartService.getCart();
-        log.info("Получить корзину (CartController): {}", cart.getProducts());
-        return cart;
+        return cartService.getCurrentCart();
     }
 }
