@@ -32,6 +32,24 @@ angular.module('app', []).controller('indexController', function ($scope, $http)
         });
     }
 
+    $scope.removeFromCart = function (productId) {
+        $http.delete(contextPath + '/api/v1/cart/remove/' + productId).then(function (response) {
+            $scope.loadCart();
+        });
+    }
+
+    $scope.excludeFromCart = function (productId) {
+        $http.delete(contextPath + '/api/v1/cart/exclude/' + productId).then(function (response) {
+            $scope.loadCart();
+        });
+    }
+
+    $scope.clearCart = function () {
+        $http.get(contextPath + '/api/v1/cart/clear/').then(function (response) {
+            $scope.loadCart();
+        });
+    }
+
     $scope.loadProducts();
     $scope.loadCart();
 

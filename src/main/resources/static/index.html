@@ -39,6 +39,7 @@
 
     <h3>Корзина</h3>
     <table class="table table-hover" cellpadding="0" cellspacing="0">
+        <button type="button" class="btn btn-danger" ng-click="clearCart()">Очистить корзину</button>
         <tr>
             <td>Название</td>
             <td>Количество</td>
@@ -52,11 +53,13 @@
 <!--                <div class="input-group">-->
 <!--                    <span class="input-group-btn"></span>-->
 <!--                </div>-->
+                <button type="button" class="btn btn-info btn-sm" ng-click="removeFromCart(item.productId)">-</button>
                 {{item.quantity}}
+                <button type="button" class="btn btn-info btn-sm" ng-click="addToCart(item.productId)">+</button>
             </td>
-            <td>{{item.pricePerProduct + ' x ' + item.quantity + ' = ' + item.price}}</td>
+            <td>{{item.price}}</td>
             <td>
-                <button type="button" class="btn btn-danger">Удалить</button>
+                <button type="button" class="btn btn-danger" ng-click="excludeFromCart(item.productId)">Удалить</button>
             </td>
         </tr>
         <tr>
@@ -67,5 +70,6 @@
         </tbody>
     </table>
 </div>
+
 </body>
 </html>
