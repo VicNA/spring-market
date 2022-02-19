@@ -2,10 +2,7 @@ package ru.geekbrains.spring.market.controllers;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.spring.market.services.CartService;
 import ru.geekbrains.spring.market.dtos.Cart;
 
@@ -20,11 +17,25 @@ public class CartController {
     @GetMapping("/add/{id}")
     public void addToCart(@PathVariable Long id) {
         cartService.add(id);
-        log.info("Добавить в корзину (CartController)");
     }
 
     @GetMapping
     public Cart getCurrentCart() {
         return cartService.getCurrentCart();
+    }
+
+    @DeleteMapping("/remove/{id}")
+    public void removeFromCart(@PathVariable Long id) {
+        cartService.remove(id);
+    }
+
+    @DeleteMapping("/exclude/{id}")
+    public void excludeItemFromCart(@PathVariable Long id) {
+        cartService.exclude(id);
+    }
+
+    @GetMapping("/clear")
+    public void clearCurrentCart() {
+        cartService.clear();
     }
 }

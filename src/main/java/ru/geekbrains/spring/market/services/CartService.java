@@ -29,4 +29,16 @@ public class CartService {
                 () -> new ResourceNotFoundException("Не удается добавить продукт с id: " + productId + " в корзину. Продукт не найден"));
         tempCart.add(product);
     }
+
+    public void remove(Long productId) {
+        tempCart.remove(productId);
+    }
+
+    public void exclude(Long productId) {
+        tempCart.exclude(productId);
+    }
+
+    public void clear() {
+        tempCart.clear();
+    }
 }
