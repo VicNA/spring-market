@@ -50,9 +50,6 @@
         <tr ng-repeat="item in cart.items">
             <td>{{item.productTitle}}</td>
             <td>
-<!--                <div class="input-group">-->
-<!--                    <span class="input-group-btn"></span>-->
-<!--                </div>-->
                 <button type="button" class="btn btn-info btn-sm" ng-click="removeFromCart(item.productId)">-</button>
                 {{item.quantity}}
                 <button type="button" class="btn btn-info btn-sm" ng-click="addToCart(item.productId)">+</button>
