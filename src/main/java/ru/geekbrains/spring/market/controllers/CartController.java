@@ -35,7 +35,7 @@ public class CartController {
     }
 
     @GetMapping("/clear")
-    public void clearCurrentCart() {
+    public void clearCart() {
         cartService.clear();
     }
 }
