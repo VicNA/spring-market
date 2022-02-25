@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.spring.market.services.CartService;
-import ru.geekbrains.spring.market.dtos.Cart;
+import ru.geekbrains.spring.market.model.Cart;
 
 @RestController
 @RequestMapping("/api/v1/cart")

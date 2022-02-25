@@ -1,4 +1,4 @@
-package ru.geekbrains.spring.market.dtos;
+package ru.geekbrains.spring.market.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,4 +13,9 @@ public class CartItem {
     private int quantity;
     private int pricePerProduct;
     private int price;
+
+    public void changeQuantity(int delta) {
+        quantity += delta;
+        price = pricePerProduct * quantity;
+    }
 }
