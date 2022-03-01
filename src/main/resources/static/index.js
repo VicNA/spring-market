@@ -105,6 +105,12 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
         });
     }
 
+    $scope.createOrder = function () {
+        $http.get(contextPath + "/api/v1/orders/create").then(function (response) {
+            $scope.clearCart();
+        });
+    }
+
     $scope.loadProducts();
     $scope.loadCart();
 
