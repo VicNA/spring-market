@@ -29,8 +29,6 @@ public class OrderService {
         Order order = new Order();
         order.setUser(user);
         order.setTotalPrice(cart.getTotalPrice());
-//        order.setPhone();
-//        order.setAddress();
         orderRepository.save(order);
 
         List<OrderItem> orderItems = cart.getItems().stream()
