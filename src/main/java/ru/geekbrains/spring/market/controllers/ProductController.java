@@ -3,7 +3,7 @@ package ru.geekbrains.spring.market.controllers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.spring.market.dtos.ProductDto;
-import ru.geekbrains.spring.market.entities.Product;
+import ru.geekbrains.spring.market.entities.ProductEntity;
 import ru.geekbrains.spring.market.exceptions.ResourceNotFoundException;
 import ru.geekbrains.spring.market.services.ProductService;
 
@@ -26,7 +26,7 @@ public class ProductController {
 
     @GetMapping("/{id}")
     public ProductDto findProductById(@PathVariable Long id) {
-        Product p = productService.findById(id).orElseThrow(
+        ProductEntity p = productService.findById(id).orElseThrow(
                 () -> new ResourceNotFoundException("Продукт не найден, id: " + id));
 
         return new ProductDto(p.getId(), p.getTitle(), p.getPrice());
