@@ -1,6 +1,5 @@
 package ru.geekbrains.spring.market.entities;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -8,34 +7,23 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
-@Table(name = "order_items")
+@Table(name = "categories")
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
-public class OrderItem {
+public class Category {
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @Column(name = "title")
+    private String title;
 
-    @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
-
-    @Column(name = "quantity")
-    private int quantity;
-
-    @Column(name = "price_per_product")
-    private int pricePerProduct;
-
-    @Column(name = "price")
-    private int price;
+    @OneToMany(mappedBy = "category")
+    private List<Product> products;
 
     @CreationTimestamp
     @Column(name = "created_at")

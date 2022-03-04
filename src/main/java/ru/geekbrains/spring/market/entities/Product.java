@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Data
 @Table(name = "products")
 @NoArgsConstructor
-public class ProductEntity {
+public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -23,6 +23,10 @@ public class ProductEntity {
 
     @Column(name = "price")
     private int price;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
 
     @CreationTimestamp
     @Column(name = "created_at")
