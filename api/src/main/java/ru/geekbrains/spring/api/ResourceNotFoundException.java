@@ -1,4 +1,4 @@
-package ru.geekbrains.spring.market.exceptions;
+package ru.geekbrains.spring.api;
 
 public class ResourceNotFoundException extends RuntimeException {
 
