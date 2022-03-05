@@ -1,10 +1,11 @@
-package ru.geekbrains.spring.market.services;
+package ru.geekbrains.spring.market.carts.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.geekbrains.spring.market.model.Cart;
-import ru.geekbrains.spring.market.entities.Product;
-import ru.geekbrains.spring.market.exceptions.ResourceNotFoundException;
+import ru.geekbrains.spring.api.ProductDto;
+import ru.geekbrains.spring.api.ResourceNotFoundException;
+import ru.geekbrains.spring.market.carts.integrations.ProductServiceIntegration;
+import ru.geekbrains.spring.market.carts.model.Cart;
 
 import javax.annotation.PostConstruct;
 
@@ -12,20 +13,20 @@ import javax.annotation.PostConstruct;
 @RequiredArgsConstructor
 public class CartService {
 
-    private final ProductService productService;
+    private final ProductServiceIntegration productServiceIntegration;
     private Cart tempCart;
-
-    public Cart getCurrentCart() {
-        return tempCart;
-    }
 
     @PostConstruct
     public void init() {
         tempCart = new Cart();
     }
 
+    public Cart getCurrentCart() {
+        return tempCart;
+    }
+
     public void add(Long productId) {
-        Product product = productService.findById(productId).orElseThrow(
+        ProductDto product = productServiceIntegration.getProductById(productId).orElseThrow(
                 () -> new ResourceNotFoundException("Не удается добавить продукт с id: " + productId + " в корзину. Продукт не найден"));
         tempCart.add(product);
     }

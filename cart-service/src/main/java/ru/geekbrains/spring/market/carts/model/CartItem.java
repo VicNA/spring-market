@@ -1,4 +1,4 @@
-package ru.geekbrains.spring.market.model;
+package ru.geekbrains.spring.market.carts.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

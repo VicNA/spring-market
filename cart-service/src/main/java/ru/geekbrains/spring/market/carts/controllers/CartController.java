@@ -1,15 +1,14 @@
-package ru.geekbrains.spring.market.controllers;
+package ru.geekbrains.spring.market.carts.controllers;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
-import ru.geekbrains.spring.market.services.CartService;
-import ru.geekbrains.spring.market.model.Cart;
+import ru.geekbrains.spring.market.carts.model.Cart;
+import ru.geekbrains.spring.market.carts.services.CartService;
 
 @RestController
 @RequestMapping("/api/v1/cart")
 @RequiredArgsConstructor
-@Slf4j
+@CrossOrigin("*")
 public class CartController {
 
     private final CartService cartService;

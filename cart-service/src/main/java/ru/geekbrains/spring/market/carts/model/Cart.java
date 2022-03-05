@@ -1,7 +1,7 @@
-package ru.geekbrains.spring.market.model;
+package ru.geekbrains.spring.market.carts.model;
 
 import lombok.Data;
-import ru.geekbrains.spring.market.entities.Product;
+import ru.geekbrains.spring.api.ProductDto;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,7 +21,7 @@ public class Cart {
         return Collections.unmodifiableList(items);
     }
 
-    public void add(Product product) {
+    public void add(ProductDto product) {
         CartItem cartItem = findItem(product.getId());
         if (cartItem == null) {
             items.add(new CartItem(product.getId(), product.getTitle(), 1, product.getPrice(), product.getPrice()));
