@@ -2,6 +2,8 @@ package ru.geekbrains.spring.market.carts.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import ru.geekbrains.spring.api.CartDto;
+import ru.geekbrains.spring.market.carts.convertes.CartConverter;
 import ru.geekbrains.spring.market.carts.model.Cart;
 import ru.geekbrains.spring.market.carts.services.CartService;
 
@@ -12,6 +14,7 @@ import ru.geekbrains.spring.market.carts.services.CartService;
 public class CartController {
 
     private final CartService cartService;
+    private final CartConverter cartConverter;
 
     @GetMapping("/add/{id}")
     public void addToCart(@PathVariable Long id) {
@@ -19,8 +22,8 @@ public class CartController {
     }
 
     @GetMapping
-    public Cart getCurrentCart() {
-        return cartService.getCurrentCart();
+    public CartDto getCurrentCart() {
+        return cartConverter.entityToDto(cartService.getCurrentCart());
     }
 
     @DeleteMapping("/remove/{id}")
