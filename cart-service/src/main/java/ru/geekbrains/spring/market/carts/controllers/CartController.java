@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.spring.api.CartDto;
 import ru.geekbrains.spring.market.carts.convertes.CartConverter;
-import ru.geekbrains.spring.market.carts.model.Cart;
 import ru.geekbrains.spring.market.carts.services.CartService;
 
 @RestController
