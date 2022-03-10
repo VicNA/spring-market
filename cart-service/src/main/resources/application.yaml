@@ -1,8 +1,11 @@
 server:
   port: 8190
   servlet:
-    context-path: /winter-carts
+    context-path: /winter-market-carts
 
-module:
-  products:
-    url: http://localhost:8189/winter/api/v1/products/
+integrations:
+  product-service:
+    url: http://localhost:8189/winter-market-core/
+    connect-timeout: 5000
+    read-timeout: 10000
+    write-timeout: 5000
