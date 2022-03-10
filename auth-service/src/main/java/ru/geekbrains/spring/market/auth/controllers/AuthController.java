@@ -1,4 +1,4 @@
-package ru.geekbrains.spring.market.core.controllers;
+package ru.geekbrains.spring.market.auth.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -7,17 +7,14 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import ru.geekbrains.spring.api.AppError;
 import ru.geekbrains.spring.api.JwtRequest;
 import ru.geekbrains.spring.api.JwtResponse;
-import ru.geekbrains.spring.api.StringResponse;
-import ru.geekbrains.spring.market.core.services.UserService;
-import ru.geekbrains.spring.market.core.utils.JwtTokenUtil;
-
-import java.security.Principal;
+import ru.geekbrains.spring.market.auth.services.UserService;
+import ru.geekbrains.spring.market.auth.utils.JwtTokenUtil;
 
 @RestController
 @RequiredArgsConstructor
@@ -35,16 +32,13 @@ public class AuthController {
                             authRequest.getUsername(),
                             authRequest.getPassword()));
         } catch (BadCredentialsException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            return new ResponseEntity<>(
+                    new AppError(HttpStatus.UNAUTHORIZED.value(), "Incorrect username or password"),
+                    HttpStatus.UNAUTHORIZED);
         }
         UserDetails userDetails = userService.loadUserByUsername(authRequest.getUsername());
         String token = jwtTokenUtil.generateToken(userDetails);
 
         return ResponseEntity.ok(new JwtResponse(token));
-    }
-
-    @GetMapping("/auth_check")
-    public StringResponse authCheck(Principal principal) {
-        return new StringResponse(principal.getName());
     }
 }

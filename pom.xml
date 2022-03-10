@@ -5,10 +5,11 @@
 	<packaging>pom</packaging>
 
 	<modules>
+		<module>api</module>
 		<module>core-service</module>
 		<module>cart-service</module>
-		<module>api</module>
-	</modules>
+        <module>auth-service</module>
+    </modules>
 
 	<groupId>ru.geekbrains.spring</groupId>
 	<artifactId>spring-market</artifactId>

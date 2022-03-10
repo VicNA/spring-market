@@ -1,4 +1,4 @@
-package ru.geekbrains.spring.market.core.services;
+package ru.geekbrains.spring.market.auth.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -8,9 +8,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.geekbrains.spring.market.core.entities.Role;
-import ru.geekbrains.spring.market.core.entities.User;
-import ru.geekbrains.spring.market.core.repositories.UserRepository;
+import ru.geekbrains.spring.market.auth.entities.Role;
+import ru.geekbrains.spring.market.auth.entities.User;
+import ru.geekbrains.spring.market.auth.repositories.UserRepository;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -35,7 +35,9 @@ public class UserService implements UserDetailsService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = findByUsername(username).get();
+        User user = findByUsername(username).orElseThrow(
+                () -> new UsernameNotFoundException(String.format("User '%s' not found", username)));
+
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
