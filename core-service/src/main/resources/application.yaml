@@ -1,7 +1,7 @@
 server:
   port: 8189
   servlet:
-    context-path: /winter
+    context-path: /winter-market-core
 spring:
   datasource:
     driver-class-name: org.h2.Driver
@@ -18,10 +18,10 @@ spring:
       enabled: true
       settings:
         web-allow-others: false
-jwt:
-  secret: F65hgG#*FGF3r45&^SFertD345Sert%FDF#G345j234fguygwe54f87t*Tgf
-  lifetime: 36000000
 
-module:
-  carts:
-    url: http://localhost:8190/winter-carts/api/v1/cart/
+integrations:
+  cart-service:
+    url: http://localhost:8190/winter-market-carts/
+    connect-timeout: 5000
+    read-timeout: 10000
+    write-timeout: 5000
