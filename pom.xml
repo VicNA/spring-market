@@ -9,6 +9,8 @@
 		<module>core-service</module>
 		<module>cart-service</module>
         <module>auth-service</module>
+        <module>front-service</module>
+        <module>gateway-service</module>
     </modules>
 
 	<groupId>ru.geekbrains.spring</groupId>
