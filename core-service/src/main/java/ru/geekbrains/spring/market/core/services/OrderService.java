@@ -33,9 +33,9 @@ public class OrderService {
                                         () -> new ResourceNotFoundException("Не удается добавить продукт с id: "
                                                 + cartItem.getProductId() + " в заказ. Продукт не найден")),
                                 order,
+                                cartItem.getQuantity(),
                                 cartItem.getPrice(),
-                                cartItem.getPricePerProduct(),
-                                cartItem.getQuantity()
+                                cartItem.getPricePerProduct()
                         )
                 ).collect(Collectors.toList()));
         orderRepository.save(order);

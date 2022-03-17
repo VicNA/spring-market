@@ -58,7 +58,7 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
     }
 
     $scope.createOrder = function () {
-        $http.get(contextPath + "/core/api/v1/orders").then(function (response) {
+        $http.post(contextPath + "/core/api/v1/orders").then(function (response) {
             alert('Заказ оформлен');
             $scope.loadCart();
         });
@@ -89,13 +89,13 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
     }
 
     $scope.removeFromCart = function (productId) {
-        $http.delete(contextPath + '/cart/api/v1/cart/remove/' + productId).then(function (response) {
+        $http.get(contextPath + '/cart/api/v1/cart/remove/' + productId).then(function (response) {
             $scope.loadCart();
         });
     }
 
     $scope.excludeFromCart = function (productId) {
-        $http.delete(contextPath + '/cart/api/v1/cart/exclude/' + productId).then(function (response) {
+        $http.get(contextPath + '/cart/api/v1/cart/exclude/' + productId).then(function (response) {
             $scope.loadCart();
         });
     }
