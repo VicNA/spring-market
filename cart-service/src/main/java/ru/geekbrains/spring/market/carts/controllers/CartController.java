@@ -24,12 +24,12 @@ public class CartController {
         return cartConverter.entityToDto(cartService.getCurrentCart());
     }
 
-    @DeleteMapping("/remove/{id}")
+    @GetMapping("/remove/{id}")
     public void removeFromCart(@PathVariable Long id) {
         cartService.remove(id);
     }
 
-    @DeleteMapping("/exclude/{id}")
+    @GetMapping("/exclude/{id}")
     public void excludeItemFromCart(@PathVariable Long id) {
         cartService.exclude(id);
     }
