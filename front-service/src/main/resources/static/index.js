@@ -51,11 +51,25 @@ angular.module('app', ['ngStorage']).controller('indexController', function ($sc
     }
 
 
+//    $scope.loadProducts = function () {
+//        $http.get(contextPath + '/core/api/v1/products').then(function (response) {
+//            $scope.productsList = response.data;
+//        });
+//    }
+
     $scope.loadProducts = function () {
-        $http.get(contextPath + '/core/api/v1/products').then(function (response) {
+        $http({
+            url: contextPath + '/core/api/v1/products',
+            method: 'GET',
+            params: {
+                title_part: $scope.filter ? $scope.filter.title_part : null,
+                min_price: $scope.filter ? $scope.filter.min_price : null,
+                max_price: $scope.filter ? $scope.filter.max_price : null
+            }
+        }).then(function (response) {
             $scope.productsList = response.data;
         });
-    }
+    };
 
     $scope.createOrder = function () {
         $http.post(contextPath + "/core/api/v1/orders").then(function (response) {

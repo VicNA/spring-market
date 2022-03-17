@@ -47,7 +47,26 @@
 
     <h1>Market</h1>
 
+    <form novalidate ng-submit="loadProducts()">
+        <div class="form-floating input-group-sm">
+            <label for="filterTitle">Название продукта</label>
+            <input type="text" class="form-control" id="filterTitle" placeholder="" ng-model="filter.title_part">
+        </div>
+        <div class="form-floating input-group-sm">
+            <label for="filterMinPrice">Мин. цена</label>
+            <input type="number" class="form-control" id="filterMinPrice" placeholder="" ng-model="filter.min_price" min="0" value="0" step=".01">
+        </div>
+        <div class="form-floating input-group-sm">
+            <label for="filterMaxPrice">Макс. цена</label>
+            <input type="number" class="form-control" id="filterMaxPrice" placeholder="" ng-model="filter.max_price" min="0" value="0" step=".01">
+        </div>
+        <br>
+        <button class="btn btn-outline-warning btn-sm" style="width: 100%;" type="submit">Применить</button>
+    </form>
+
+    <br>
     <h3>Список товаров</h3>
+
     <table class="table table-hover" cellpadding="0" cellspacing="0">
         <tr>
             <td>ID</td>

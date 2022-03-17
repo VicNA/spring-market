@@ -8,6 +8,7 @@ import ru.geekbrains.spring.market.core.converters.ProductConverter;
 import ru.geekbrains.spring.market.core.entities.Product;
 import ru.geekbrains.spring.market.core.services.ProductService;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,8 +21,12 @@ public class ProductController {
     private final ProductConverter productConverter;
 
     @GetMapping
-    public List<ProductDto> findAllProducts() {
-        return productService.findAll().stream()
+    public List<ProductDto> findAllProducts(
+            @RequestParam(name = "title_part", required = false) String titlePart,
+            @RequestParam(name = "min_price", required = false) BigDecimal minPrice,
+            @RequestParam(name = "max_price", required = false) BigDecimal maxPrice
+    ) {
+        return productService.findAll(titlePart, minPrice, maxPrice).stream()
                 .map(productConverter::entityToDto)
                 .collect(Collectors.toList());
     }
