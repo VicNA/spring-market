@@ -1,4 +1,4 @@
-package ru.geekbrains.spring.market.carts;
+package ru.geekbrains.spring.market.cart;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

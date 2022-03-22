@@ -1,10 +1,10 @@
-package ru.geekbrains.spring.market.carts.services;
+package ru.geekbrains.spring.market.cart.services;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.geekbrains.spring.api.ProductDto;
-import ru.geekbrains.spring.market.carts.integrations.ProductServiceIntegration;
-import ru.geekbrains.spring.market.carts.model.Cart;
+import ru.geekbrains.spring.market.cart.integrations.ProductServiceIntegration;
+import ru.geekbrains.spring.market.cart.model.Cart;
 
 import javax.annotation.PostConstruct;
 

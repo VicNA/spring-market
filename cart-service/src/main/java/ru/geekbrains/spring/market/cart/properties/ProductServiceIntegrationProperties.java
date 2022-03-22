@@ -1,4 +1,4 @@
-package ru.geekbrains.spring.market.carts.properties;
+package ru.geekbrains.spring.market.cart.properties;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

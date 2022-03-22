@@ -1,4 +1,4 @@
-package ru.geekbrains.spring.market.carts.model;
+package ru.geekbrains.spring.market.cart.model;
 
 import lombok.Data;
 import ru.geekbrains.spring.api.ProductDto;
@@ -46,7 +46,7 @@ public class Cart {
 
     public void clear() {
         items.clear();
-        totalPrice = BigDecimal.valueOf(0);
+        totalPrice = BigDecimal.ZERO;
     }
 
     private CartItem findItem(Long productId) {
@@ -56,7 +56,7 @@ public class Cart {
     }
 
     private void recalculate() {
-        totalPrice = BigDecimal.valueOf(0);
+        totalPrice = BigDecimal.ZERO;
         for (CartItem item : items) {
             totalPrice = totalPrice.add(item.getPrice());
         }
