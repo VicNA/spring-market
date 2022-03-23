@@ -1,8 +1,7 @@
-package ru.geekbrains.spring.market.core;
+package ru.geekbrains.spring.market.core.services;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatcher;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +14,6 @@ import ru.geekbrains.spring.market.core.entities.Order;
 import ru.geekbrains.spring.market.core.entities.Product;
 import ru.geekbrains.spring.market.core.integrations.CartServiceIntegration;
 import ru.geekbrains.spring.market.core.repositories.OrderRepository;
-import ru.geekbrains.spring.market.core.services.OrderService;
-import ru.geekbrains.spring.market.core.services.ProductService;
 
 import java.math.BigDecimal;
 import java.util.List;
