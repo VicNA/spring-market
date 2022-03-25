@@ -49,6 +49,7 @@ public class ProductServiceTest {
     }
 
     // Как можно протестировать метод у которого есть спецификация?
+    // И нужно ли тестировать спецификацию?
 
     @Test
     public void createNewProductTest() {
