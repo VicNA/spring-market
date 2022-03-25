@@ -1,4 +1,4 @@
-package ru.geekbrains.spring.market.carts.configs;
+package ru.geekbrains.spring.market.cart.configs;
 
 import io.netty.channel.ChannelOption;
 import io.netty.handler.timeout.ReadTimeoutHandler;
@@ -11,7 +11,7 @@ import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.netty.http.client.HttpClient;
 import reactor.netty.tcp.TcpClient;
-import ru.geekbrains.spring.market.carts.properties.ProductServiceIntegrationProperties;
+import ru.geekbrains.spring.market.cart.properties.ProductServiceIntegrationProperties;
 
 import java.util.concurrent.TimeUnit;
 

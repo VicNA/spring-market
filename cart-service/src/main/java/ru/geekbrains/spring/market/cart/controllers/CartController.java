@@ -1,10 +1,10 @@
-package ru.geekbrains.spring.market.carts.controllers;
+package ru.geekbrains.spring.market.cart.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.spring.api.CartDto;
-import ru.geekbrains.spring.market.carts.convertes.CartConverter;
-import ru.geekbrains.spring.market.carts.services.CartService;
+import ru.geekbrains.spring.market.cart.convertes.CartConverter;
+import ru.geekbrains.spring.market.cart.services.CartService;
 
 @RestController
 @RequestMapping("/api/v1/cart")

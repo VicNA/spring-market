@@ -1,4 +1,4 @@
-package ru.geekbrains.spring.market.carts.integrations;
+package ru.geekbrains.spring.market.cart.integrations;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

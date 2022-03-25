@@ -1,9 +1,9 @@
-package ru.geekbrains.spring.market.carts.convertes;
+package ru.geekbrains.spring.market.cart.convertes;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.geekbrains.spring.api.CartDto;
-import ru.geekbrains.spring.market.carts.model.Cart;
+import ru.geekbrains.spring.market.cart.model.Cart;
 
 import java.util.stream.Collectors;
 
