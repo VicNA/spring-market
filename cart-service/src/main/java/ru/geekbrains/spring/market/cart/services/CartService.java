@@ -7,37 +7,46 @@ import ru.geekbrains.spring.market.cart.integrations.ProductServiceIntegration;
 import ru.geekbrains.spring.market.cart.model.Cart;
 
 import javax.annotation.PostConstruct;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 public class CartService {
 
     private final ProductServiceIntegration productServiceIntegration;
-    private Cart tempCart;
+    private Map<String, Cart> userCart;
 
     @PostConstruct
     public void init() {
-        tempCart = new Cart();
+        userCart = new HashMap<String, Cart>();
     }
 
-    public Cart getCurrentCart() {
-        return tempCart;
+    private Cart getCart(String username) {
+        if (!userCart.containsKey(username)) {
+            userCart.put(username, new Cart());
+        }
+        return userCart.get(username);
     }
 
-    public void add(Long productId) {
+    public Cart getCurrentCart(String username) {
+        return getCart(username);
+    }
+
+    public void add(String username, Long productId) {
         ProductDto product = productServiceIntegration.getProductById(productId);
-        tempCart.add(product);
+        getCart(username).add(product);
     }
 
-    public void remove(Long productId) {
-        tempCart.remove(productId);
+    public void remove(String username, Long productId) {
+        userCart.get(username).remove(productId);
     }
 
-    public void exclude(Long productId) {
-        tempCart.exclude(productId);
+    public void exclude(String username, Long productId) {
+        userCart.get(username).exclude(productId);
     }
 
-    public void clear() {
-        tempCart.clear();
+    public void clear(String username) {
+        userCart.remove(username);
     }
 }

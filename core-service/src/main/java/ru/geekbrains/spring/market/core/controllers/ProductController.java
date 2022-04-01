@@ -1,6 +1,7 @@
 package ru.geekbrains.spring.market.core.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import ru.geekbrains.spring.api.ProductDto;
 import ru.geekbrains.spring.api.ResourceNotFoundException;
@@ -10,7 +11,6 @@ import ru.geekbrains.spring.market.core.services.ProductService;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/products")
@@ -21,14 +21,18 @@ public class ProductController {
     private final ProductConverter productConverter;
 
     @GetMapping
-    public List<ProductDto> findAllProducts(
+    public Page<ProductDto> findProducts(
             @RequestParam(name = "title_part", required = false) String titlePart,
             @RequestParam(name = "min_price", required = false) BigDecimal minPrice,
-            @RequestParam(name = "max_price", required = false) BigDecimal maxPrice
+            @RequestParam(name = "max_price", required = false) BigDecimal maxPrice,
+            @RequestParam(name = "p", defaultValue = "1") Integer page
     ) {
-        return productService.findAll(titlePart, minPrice, maxPrice).stream()
-                .map(productConverter::entityToDto)
-                .collect(Collectors.toList());
+        if (page < 1) {
+            page = 1;
+        }
+
+        return productService.findAll(titlePart, minPrice, maxPrice, page - 1)
+                .map(productConverter::entityToDto);
     }
 
     @GetMapping("/{id}")

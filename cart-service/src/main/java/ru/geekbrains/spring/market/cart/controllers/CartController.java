@@ -15,27 +15,27 @@ public class CartController {
     private final CartConverter cartConverter;
 
     @GetMapping("/add/{id}")
-    public void addToCart(@PathVariable Long id) {
-        cartService.add(id);
+    public void addToCart(@RequestHeader(name = "username") String username, @PathVariable Long id) {
+        cartService.add(username, id);
     }
 
     @GetMapping
-    public CartDto getCurrentCart() {
-        return cartConverter.entityToDto(cartService.getCurrentCart());
+    public CartDto getCurrentCart(@RequestHeader(name = "username") String username) {
+        return cartConverter.entityToDto(cartService.getCurrentCart(username));
     }
 
     @GetMapping("/remove/{id}")
-    public void removeFromCart(@PathVariable Long id) {
-        cartService.remove(id);
+    public void removeFromCart(@RequestHeader(name = "username") String username, @PathVariable Long id) {
+        cartService.remove(username, id);
     }
 
     @GetMapping("/exclude/{id}")
-    public void excludeItemFromCart(@PathVariable Long id) {
-        cartService.exclude(id);
+    public void excludeItemFromCart(@RequestHeader(name = "username") String username, @PathVariable Long id) {
+        cartService.exclude(username, id);
     }
 
     @GetMapping("/clear")
-    public void clearCart() {
-        cartService.clear();
+    public void clearCart(@RequestHeader(name = "username") String username) {
+        cartService.clear(username);
     }
 }
