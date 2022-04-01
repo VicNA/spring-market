@@ -1,6 +1,7 @@
 package ru.geekbrains.spring.market.core.services;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
@@ -13,7 +14,6 @@ import ru.geekbrains.spring.market.core.repositories.ProductRepository;
 import ru.geekbrains.spring.market.core.repositories.specifications.ProductsSpecifications;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,7 +23,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final CategoryService categoryService;
 
-    public List<Product> findAll(String partTitle, BigDecimal minPrice, BigDecimal maxPrice) {
+    public Page<Product> findAll(String partTitle, BigDecimal minPrice, BigDecimal maxPrice, Integer page) {
         Specification<Product> spec = Specification.where(null);
         if (partTitle != null) {
             spec = spec.and(ProductsSpecifications.titleLike(partTitle));
@@ -35,7 +35,7 @@ public class ProductService {
             spec = spec.and(ProductsSpecifications.priceLessThanOrEqualsThan(maxPrice));
         }
 
-        return productRepository.findAll(spec);
+        return productRepository.findAll(spec, PageRequest.of(page, 5));
     }
 
     public Optional<Product> findById(Long id) {
