@@ -18,10 +18,6 @@ public class Cart {
         this.items = new ArrayList<>();
     }
 
-    public List<CartItem> getItems() {
-        return Collections.unmodifiableList(items);
-    }
-
     public void add(ProductDto product) {
         CartItem cartItem = findItem(product.getId());
         if (cartItem == null) {

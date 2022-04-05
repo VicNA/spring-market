@@ -25,16 +25,15 @@ public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAuthFilter.Co
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {
             ServerHttpRequest request = exchange.getRequest();
+            if (request.getHeaders().containsKey("username")) {
+                return this.onError(exchange, "Invalid header username", HttpStatus.BAD_REQUEST);
+            }
             if (!isAuthMissing(request)) {
                 final String token = getAuthHeader(request);
                 if (jwtUtil.isInvalid(token)) {
                     return this.onError(exchange, "Authorization header is invalid", HttpStatus.UNAUTHORIZED);
                 }
                 populateRequestWithHeaders(exchange, token);
-            } else {
-                exchange.getRequest().mutate()
-                        .header("username", "guest")
-                        .build();
             }
             return chain.filter(exchange);
         };

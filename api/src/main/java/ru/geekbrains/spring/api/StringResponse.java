@@ -12,8 +12,6 @@ public class StringResponse {
         this.value = value;
     }
 
-
-
     public StringResponse() {
     }
 

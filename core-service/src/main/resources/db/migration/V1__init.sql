@@ -18,10 +18,24 @@ create table products (
     , updated_at    timestamp default current_timestamp
 );
 
-insert into products (title, price, category_id)
-values ('Milk', 80.99, 1)
-     , ('Bread', 25.99, 1)
-     , ('Cheese', 300.99, 1);
+insert into products (title, price, category_id) values
+('Milk', 70.00, 1),
+('Milk2', 80.00, 1),
+('Milk3', 82.00, 1),
+('Milk4', 82.00, 1),
+('Milk5', 84.00, 1),
+('Milk6', 82.00, 1),
+('Milk7', 82.00, 1),
+('Milk8', 90.00, 1),
+('Milk9', 84.00, 1),
+('Milk10', 84.00, 1),
+('Milk11', 86.00, 1),
+('Milk12', 84.00, 1),
+('Milk13', 88.00, 1),
+('Milk14', 82.00, 1),
+('Milk15', 84.00, 1),
+('Bread', 25.00, 1),
+('Cheese', 300.00, 1);
 
 create table orders
 (
