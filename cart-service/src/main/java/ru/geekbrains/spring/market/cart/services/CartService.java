@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 import ru.geekbrains.spring.api.ProductDto;
 import ru.geekbrains.spring.market.cart.integrations.ProductServiceIntegration;
 import ru.geekbrains.spring.market.cart.model.Cart;
+import ru.geekbrains.spring.market.cart.model.CartItem;
 
 import javax.annotation.PostConstruct;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -24,6 +26,18 @@ public class CartService {
     private String cartPrefix;
 
     public Cart getCurrentCart(String username, String uuid) {
+        // Реализация объединения ТОЛЬКО позиции элементов корзины
+        if (username != null) {
+            Cart uuidCard = getCurrentCart(cartPrefix + uuid);
+            if (uuidCard.getItems().size() > 0) {
+                Cart userCard = getCurrentCart(cartPrefix + username);
+                uuidCard.getItems().removeAll(userCard.getItems());
+                userCard.getItems().addAll(uuidCard.getItems());
+                uuidCard.clear();
+                redisTemplate.opsForValue().set(cartPrefix + username, userCard);
+                redisTemplate.opsForValue().set(cartPrefix + uuid, uuidCard);
+            }
+        }
         return getCurrentCart(getCartUuid(username, uuid));
     }
 
