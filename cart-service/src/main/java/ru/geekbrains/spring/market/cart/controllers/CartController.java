@@ -26,44 +26,32 @@ public class CartController {
     public void addToCart(@RequestHeader(name = "username", required = false) String username,
                           @PathVariable String uuid,
                           @PathVariable Long id) {
-        String targetUuid = getCartUuid(username, uuid);
-        cartService.add(targetUuid, id);
+        cartService.add(username, uuid, id);
     }
 
     @GetMapping("/{uuid}")
     public CartDto getCurrentCart(@RequestHeader(name = "username", required = false) String username,
                                   @PathVariable String uuid) {
-        String targetUuid = getCartUuid(username, uuid);
-        return cartConverter.entityToDto(cartService.getCurrentCart(targetUuid));
+        return cartConverter.entityToDto(cartService.getCurrentCart(username, uuid));
     }
 
     @GetMapping("/{uuid}/remove/{id}")
     public void removeFromCart(@RequestHeader(name = "username", required = false) String username,
                                @PathVariable String uuid,
                                @PathVariable Long id) {
-        String targetUuid = getCartUuid(username, uuid);
-        cartService.remove(targetUuid, id);
+        cartService.remove(username, uuid, id);
     }
 
     @GetMapping("/{uuid}/exclude/{id}")
     public void excludeItemFromCart(@RequestHeader(name = "username", required = false) String username,
                                     @PathVariable String uuid,
                                     @PathVariable Long id) {
-        String targetUuid = getCartUuid(username, uuid);
-        cartService.exclude(targetUuid, id);
+        cartService.exclude(username, uuid, id);
     }
 
     @GetMapping("/{uuid}/clear")
     public void clearCart(@RequestHeader(name = "username", required = false) String username,
                           @PathVariable String uuid) {
-        String targetUuid = getCartUuid(username, uuid);
-        cartService.clear(targetUuid);
-    }
-
-    private String getCartUuid(String username, String uuid) {
-        if (username != null) {
-            return username;
-        }
-        return uuid;
+        cartService.clear(username, uuid);
     }
 }

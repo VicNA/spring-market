@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 import ru.geekbrains.spring.api.ProductDto;
 import ru.geekbrains.spring.market.cart.integrations.ProductServiceIntegration;
 import ru.geekbrains.spring.market.cart.model.Cart;
+import ru.geekbrains.spring.market.cart.model.CartItem;
 
 import javax.annotation.PostConstruct;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -23,34 +25,56 @@ public class CartService {
     @Value("${cart-service.cart-prefix}")
     private String cartPrefix;
 
-    public Cart getCurrentCart(String uuid) {
-        String targetUuid = cartPrefix + uuid;
+    public Cart getCurrentCart(String username, String uuid) {
+        // Реализация объединения ТОЛЬКО позиции элементов корзины
+        if (username != null) {
+            Cart uuidCard = getCurrentCart(cartPrefix + uuid);
+            if (uuidCard.getItems().size() > 0) {
+                Cart userCard = getCurrentCart(cartPrefix + username);
+                uuidCard.getItems().removeAll(userCard.getItems());
+                userCard.getItems().addAll(uuidCard.getItems());
+                uuidCard.clear();
+                redisTemplate.opsForValue().set(cartPrefix + username, userCard);
+                redisTemplate.opsForValue().set(cartPrefix + uuid, uuidCard);
+            }
+        }
+        return getCurrentCart(getCartUuid(username, uuid));
+    }
+
+    public Cart getCurrentCart(String targetUuid) {
         if (!redisTemplate.hasKey(targetUuid)) {
             redisTemplate.opsForValue().set(targetUuid, new Cart());
         }
         return (Cart) redisTemplate.opsForValue().get(targetUuid);
     }
 
-    public void add(String uuid, Long productId) {
+    public void add(String username, String uuid, Long productId) {
         ProductDto product = productServiceIntegration.getProductById(productId);
-        execute(uuid, cart -> cart.add(product));
+        execute(getCartUuid(username, uuid), cart -> cart.add(product));
     }
 
-    public void remove(String uuid, Long productId) {
-        execute(uuid, cart -> cart.remove(productId));
+    public void remove(String username, String uuid, Long productId) {
+        execute(getCartUuid(username, uuid), cart -> cart.remove(productId));
     }
 
-    public void exclude(String uuid, Long productId) {
-        execute(uuid, cart -> cart.exclude(productId));
+    public void exclude(String username, String uuid, Long productId) {
+        execute(getCartUuid(username, uuid), cart -> cart.exclude(productId));
     }
 
-    public void clear(String uuid) {
-        execute(uuid, Cart::clear);
+    public void clear(String username, String uuid) {
+        execute(getCartUuid(username, uuid), Cart::clear);
     }
 
-    private void execute(String uuid, Consumer<Cart> operation) {
-        Cart cart = getCurrentCart(uuid);
+    private void execute(String targetUuid, Consumer<Cart> operation) {
+        Cart cart = getCurrentCart(targetUuid);
         operation.accept(cart);
-        redisTemplate.opsForValue().set(cartPrefix + uuid, cart);
+        redisTemplate.opsForValue().set(targetUuid, cart);
+    }
+
+    private String getCartUuid(String username, String uuid) {
+        if (username != null) {
+            return cartPrefix + username;
+        }
+        return cartPrefix + uuid;
     }
 }
