@@ -10,12 +10,14 @@ angular.module('market').controller('storeController', function ($scope, $http, 
             params: {
                 title_part: $scope.filter ? $scope.filter.title_part : null,
                 min_price: $scope.filter ? $scope.filter.min_price : null,
-                max_price: $scope.filter ? $scope.filter.max_price : null
+                max_price: $scope.filter ? $scope.filter.max_price : null,
+                p: pageIndex
             }
         }).then(function (response) {
-            $scope.productsList = response.data.content;
+            $scope.productsPage = response.data;
+            $scope.generatePagesList($scope.productsPage.totalPages);
         });
-    };
+    }
 
     $scope.showProductInfo = function (productId) {
         let path = coreContextPath + '/api/v1/products/' + productId;
@@ -28,6 +30,14 @@ angular.module('market').controller('storeController', function ($scope, $http, 
         let path = cartContextPath + '/api/v1/cart/' + $localStorage.winterMarketGuestCartId + '/add/' + productId;
         $http.get(path).then(function (response) {
         });
+    }
+
+    $scope.generatePagesList = function (totalPages) {
+        out = [];
+        for (let i = 0; i < totalPages; i++) {
+            out.push(i + 1);
+        }
+        $scope.pagesList = out;
     }
 
     $scope.loadProducts();
