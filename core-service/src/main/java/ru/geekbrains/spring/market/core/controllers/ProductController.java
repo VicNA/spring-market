@@ -40,10 +40,10 @@ public class ProductController {
     )
     @GetMapping
     public PageDto<ProductDto> findProducts(
-            @RequestParam(name = "title_part", required = false) String titlePart,
-            @RequestParam(name = "min_price", required = false) BigDecimal minPrice,
-            @RequestParam(name = "max_price", required = false) BigDecimal maxPrice,
-            @RequestParam(name = "p", defaultValue = "1") Integer page
+            @Parameter(description = "Название продукта") @RequestParam(name = "title_part", required = false) String titlePart,
+            @Parameter(description = "Минимальная цена") @RequestParam(name = "min_price", required = false) BigDecimal minPrice,
+            @Parameter(description = "Максимальная цена") @RequestParam(name = "max_price", required = false) BigDecimal maxPrice,
+            @Parameter(description = "Номер страницы списка") @RequestParam(name = "p", defaultValue = "1") Integer page
     ) {
         if (page < 1) {
             page = 1;
@@ -61,7 +61,7 @@ public class ProductController {
     }
 
     @Operation(
-            summary = "Запрос на получение продукта по id",
+            summary = "Поиск продукта по id",
             responses = {
                     @ApiResponse(
                             description = "Успешный ответ", responseCode = "200",
@@ -83,7 +83,7 @@ public class ProductController {
     }
 
     @Operation(
-            summary = "Запрос на создание нового продукта",
+            summary = "Создает новый продукт",
             responses = {
                     @ApiResponse(
                             description = "Продукт успешно создан", responseCode = "201",
@@ -93,13 +93,27 @@ public class ProductController {
     )
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductDto createNewProduct(@RequestBody ProductDto productDto) {
+    public ProductDto createNewProduct(
+            @Parameter(description = "Новый продукт", required = true) @RequestBody ProductDto productDto) {
         Product p = productService.createNewProduct(productDto);
         return productConverter.entityToDto(p);
     }
 
+    @Operation(
+            summary = "Удаляет продукт",
+            responses = {
+                    @ApiResponse(
+                            description = "Продукт удален", responseCode = "200"
+                    ),
+                    @ApiResponse(
+                            description = "Продукт не найден", responseCode = "404",
+                            content = @Content(schema = @Schema(implementation = AppError.class))
+                    )
+            }
+    )
     @DeleteMapping("/{id}")
-    public void deleteProductById(@PathVariable Long id) {
+    public void deleteProductById(
+            @Parameter(description = "Идентификатор продукта", required = true) @PathVariable Long id) {
         productService.deleteById(id);
     }
 
