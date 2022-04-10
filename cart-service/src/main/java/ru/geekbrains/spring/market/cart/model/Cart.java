@@ -28,6 +28,10 @@ public class Cart {
         recalculate();
     }
 
+    public void changeItemQuantity(Long productId) {
+        findItem(productId).changeQuantity(1);
+    }
+
     public void remove(Long productId) {
         CartItem cartItem = findItem(productId);
         cartItem.changeQuantity(-1);
@@ -49,6 +53,10 @@ public class Cart {
         return items.stream().filter(i -> i.getProductId().equals(productId))
                 .findFirst()
                 .orElse(null);
+    }
+
+    public boolean isPresent(Long productId) {
+        return findItem(productId) != null;
     }
 
     private void recalculate() {

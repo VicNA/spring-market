@@ -49,8 +49,14 @@ public class CartService {
     }
 
     public void add(String username, String uuid, Long productId) {
-        ProductDto product = productServiceIntegration.getProductById(productId);
-        execute(getCartUuid(username, uuid), cart -> cart.add(product));
+        String targetUuid = getCartUuid(username, uuid);
+        Cart currentCart = getCurrentCart(targetUuid);
+        if (!currentCart.isPresent(productId)) {
+            ProductDto product = productServiceIntegration.getProductById(productId);
+            execute(targetUuid, cart -> cart.add(product));
+        } else {
+            execute(targetUuid, cart -> cart.changeItemQuantity(productId));
+        }
     }
 
     public void remove(String username, String uuid, Long productId) {
