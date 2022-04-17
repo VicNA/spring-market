@@ -66,6 +66,7 @@ public class JwtAuthFilter extends AbstractGatewayFilterFactory<JwtAuthFilter.Co
         Claims claims = jwtUtil.getAllClaimsFromToken(token);
         exchange.getRequest().mutate()
                 .header("username", claims.getSubject())
+                .header("role", String.valueOf(claims.get("role")))
                 .build();
     }
 }

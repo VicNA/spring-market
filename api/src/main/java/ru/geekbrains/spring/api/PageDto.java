@@ -1,10 +1,18 @@
 package ru.geekbrains.spring.api;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import java.util.List;
 
+@Schema(description = "Страница с элементами")
 public class PageDto<E> {
+    @Schema(description = "Список элементов", required = true)
     private List<E> items;
+
+    @Schema(description = "Номер страницы", required = true)
     private int page;
+
+    @Schema(description = "Общее количество страниц", required = true)
     private int totalPages;
 
     public List<E> getItems() {
